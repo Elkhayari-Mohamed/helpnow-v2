@@ -42,11 +42,35 @@
                                     <div class="form-group">
                                         <textarea class="form-control" name="prescription" id="prescription" rows="8"></textarea>
                                     </div>
-                                    <!--end::Table-->
-                                    <!--begin::Section-->
-
-                                    <!--end::Section-->
                                 </div>
+                                <!-- Medical Records -->
+                                @if ($info->medical_record)
+                                    <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">Medical Records</h4>
+                                    <div class="table-responsive border-bottom mb-14">
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="border-bottom fs-6 fw-bolder text-muted text-uppercase">
+                                                    <th class="min-w-175px pb-9">Symptoms</th>
+                                                    <th class="min-w-175px pb-9">Current Medications</th>
+                                                    <th class="min-w-175px pb-9">Medical History</th>
+                                                    <th class="min-w-175px pb-9">Allergies</th>
+                                                    <th class="min-w-175px pb-9">Family Medical History</th>
+                                                    <th class="min-w-175px pb-9">Lifestyle Information</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ $info->medical_record->symptoms }}</td>
+                                                    <td>{{ $info->medical_record->current_medications }}</td>
+                                                    <td>{{ $info->medical_record->medical_history }}</td>
+                                                    <td>{{ $info->medical_record->allergies }}</td>
+                                                    <td>{{ $info->medical_record->family_medical_history }}</td>
+                                                    <td>{{ $info->medical_record->lifestyle_information }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
                                 <!--end::Content-->
                                 <!--begin::Separator-->
                                 <div class="border-end d-none d-md-block mh-450px mx-9"></div>

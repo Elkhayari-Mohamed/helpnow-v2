@@ -24,17 +24,17 @@ class DoctorsController extends Controller
     {
         $user_id=Auth::user()->id;
         $id=Doctor::select('id')->where('user_id',$user_id)->first();
-      
+
        //dd($wallet);
        $consultations=Consultation::where('doctor_id',$id->id)->get();
        $balance=$consultations->where('payed','1')->sum('price');
-      
+
       //dd($balance);
-      
+
         return view('doctors.index',[
             'consultations'=>$consultations,
             'balance' => $balance
-    ]); 
+    ]);
         //return view('doctors.index')->withErrors(['Please Charge Your Balance']);;
     }
 
@@ -131,10 +131,10 @@ class DoctorsController extends Controller
         User::find($user_id)->update([
             'email' => $data['email']
         ]);
-        
-        
 
-        /*    
+
+
+        /*
       $specialitie = $data['specialitie_name'];
       $specialitie_id= Specialitie::select('id')->where('name',$specialitie)->first();
       $specialitie_array =['specialitie_id'=>$specialitie_id->id,'doctor_id'=>$user_id];
@@ -145,11 +145,11 @@ class DoctorsController extends Controller
             'specialitie_id',$specialitie_id->id,
             'doctor_id' , $user_id
         ])->create($specialitie_array);*/
-        
+
         unset($data['email']);
         //unset($data['specialitie_name']);
         unset($data['_token']);
-        
+
         Doctor::where('user_id',$user_id)->update($data);
         //dd($data,$user_id);
         return redirect('/doctors/overview')
@@ -209,30 +209,30 @@ class DoctorsController extends Controller
         )->get();
 
      //dd($patient->patient->first_name);
-        $events_array = [];        
+        $events_array = [];
         foreach ($patients as $patient) {
             $color = '#378006';
-            $date = $patient->consultation_date;      
+            $date = $patient->consultation_date;
             $event = [
                 "id" => $patient->id,
                 "title" =>$patient->patient->first_name." ".$patient->patient->last_name,
                 "start" => $date,
                 "eventColor" => $color
             ];
-            array_push($events_array,$event);            
+            array_push($events_array,$event);
         }
         return response()->json($events_array);
         //return response(view('doctors.calendar',[response()->json($events_array)]));
-        
+
     }
     public function calendar(Doctor $doctor)
     {
 
-        
+
         return view('doctors.calendar');
     }
 
-    
+
     public function patient_info(Doctor $doctor,$id)
     {
         $patient_info = Consultation::where(
@@ -249,7 +249,7 @@ class DoctorsController extends Controller
         ])->get();
        $count= $consultations->count();
       // dd($consultations->count());
-        $email= User::select('email')->where('id',$user_id->user_id)->first();    
+        $email= User::select('email')->where('id',$user_id->user_id)->first();
         return view('doctors.patient_info',[
             'patient_info'=>$user_id,
             'consultations'=>$consultations,
@@ -257,9 +257,9 @@ class DoctorsController extends Controller
             'id',
             'email'=>$email
         ]);
-        
+
     }
-  
+
     public function patients_list(Doctor $doctor)
     {
         $id=Auth::id();
@@ -270,7 +270,7 @@ class DoctorsController extends Controller
         $patients_list= Consultation::where(
             'doctor_id',$doc_id->id
         )->get();
-            
+
      // dd($patients_list->doctor->first_name);
 
         return view('doctors.patients_list',
@@ -279,13 +279,13 @@ class DoctorsController extends Controller
     }
     public function rapport(Doctor $doctor)
     {
-        
+
         return view('doctors.rapport');
     }
     public function consultation(Doctor $doctor)
     {
         return view('doctors.consultation');
     }
-    
+
 
 }

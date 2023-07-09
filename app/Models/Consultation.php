@@ -36,4 +36,9 @@ class Consultation extends Model
     {
         return $this->hasMany(Ordonnance::class);
     }
+    public function medical_record()
+{
+    return $this->hasOne(MedicalRecord::class);
+}
+
 }

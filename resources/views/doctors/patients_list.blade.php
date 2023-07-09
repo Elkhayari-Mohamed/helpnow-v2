@@ -393,9 +393,9 @@
                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
 
                         <th class="min-w-125px">Patient Name</th>
-                        <th class="min-w-125px">Description</th>
                         <th class="min-w-125px">Status</th>
                         <th class="min-w-125px">Consultation Date</th>
+                        <th class="min-w-125px">Consultation Request</th>
                         <th class="text-end min-w-100px">Actions</th>
                     </tr>
                     <!--end::Table row-->
@@ -429,10 +429,6 @@
                                 <!--begin::User details-->
                             </td>
                             <!--end::User=-->
-                            <!--begin::Role=-->
-                            <td>{{ $list->descriptions }}</td>
-                            <!--end::Role=-->
-                            <!--begin::Last login=-->
                             <td>
                                 <div class="badge badge-light fw-bolder">
 
@@ -447,21 +443,17 @@
 
                                 </div>
                             </td>
-                            <!--end::Last login=-->
-                            <!--begin::Two step=-->
-                            <!--end::Two step=-->
-                            <!--begin::Joined-->
                             <td>{{ $list->consultation_date }}</td>
-                            <!--begin::Joined-->
-                            <!--begin::Action=-->
+                            <td style="padding-left: 2rem">
+                                <a href="doctors/consultation_request/{{ $list['id'] }}" class="btn btn-sm btn-light-primary">
+                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
 
-                            <!--begin::Joined-->
-                            <!--begin::Action=-->
-
+                                    View Request
+                                </a>
+                            </td>
                             <td class="text-end">
 
                                 <div class="px-7 py-5">
-
                                     @if ($list->status == 0)
                                         <a href="{{ route('status_update', ['cons_id' => $list->id, 'status' => 1]) }}"
                                             class="btn btn-light-primary me-3">

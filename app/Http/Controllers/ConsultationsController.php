@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\PatientsController;
 
 use App\Models\Consultation;
+use App\Models\MedicalRecord;
 use App\Models\Patient;
 use App\Models\Doctor;
 use App\Models\Wallet;
@@ -34,7 +35,7 @@ class ConsultationsController extends Controller
      */
 
 
-  
+
 
     public function create($id)
     {
@@ -43,9 +44,9 @@ class ConsultationsController extends Controller
         $patient = Patient::where('user_id',$user_id)->first();
         $doctor  = Doctor::where('id',$id)->first();
 
-       
-        
-        return view('patients.consultation', 
+
+
+        return view('patients.consultation',
 
             compact('patient' ,'doctor')
 
@@ -64,27 +65,41 @@ class ConsultationsController extends Controller
       // $idd=$this.create()->$id;
       $taken= Consultation::select('consultation_date')->where('doctor_id',$id)->get()->pluck('consultation_date');
 
-      $datetime=$request->consultation_date.":00";
+     $datetime=$request->consultation_date.":00";
      $str_js= json_encode($taken);
-     $y=Str::contains($str_js,$datetime);
-     // dd($y);
-      if($y==false){
-            $user_id = Auth::id();
-            $patient =Patient::where('user_id',$user_id)->first();
-            $doctor =Doctor::where('id',$id)->first();
+     $dateTaken=Str::contains($str_js,$datetime);
+    // dd($request);
+     $user_id = Auth::id();
+     $patient =Patient::where('user_id',$user_id)->first();
+     $doctor =Doctor::where('id',$id)->first();
 
-           
-            
-        Consultation::create([
+      if($dateTaken==false){
+        $consultation = Consultation::create([
+
             'doctor_id'     =>$doctor->id,
             'patient_id'    =>$patient->id,
             'descriptions'  =>$request->descriptions,
             'price'         =>'500',
             'link'          ,
             'consultation_date' =>$request->consultation_date,
-            'status'      
+            'status'
        ]);
+
+      $medicalrecord = MedicalRecord::create([
+
+        'patient_id'             => $patient->id,
+        'consultation_id'        => $consultation->id,
+        'symptoms'               => $request->symptoms,
+        'current_medications'    => $request->current_medications,
+        'medical_history'        => $request->medical_history,
+        'allergies'              => $request->allergies,
+        'family_medical_history' => $request->family_medical_history,
+        'lifestyle_information'  => $request->lifestyle_information,
+
+            ]);
+
        return redirect('patients/index');}
+
        else{
         return Redirect::back()->withErrors(['msg' => 'Date Is Already Taken ! Please Chose Another Date']);
        }
@@ -107,7 +122,7 @@ class ConsultationsController extends Controller
           //dd($consultation->price);
             $total = Wallet::select('balance')->where('patient_id',$patient_id->user_id)->first();
             $balance= $total->balance;
-         
+
              $balance =$balance-$consultation->price;
              if($balance >= 0){
              // dd($balance);
@@ -115,7 +130,7 @@ class ConsultationsController extends Controller
 
              return redirect()->action([WalletsController::class, 'show'], ['patient_id' => $consultation->patient_id]);}
 
-           else 
+           else
            $payed = 0;
            Consultation::find($consultation_id)->update(['payed'=>$payed]);
 
@@ -129,8 +144,8 @@ class ConsultationsController extends Controller
 
         }
        }
-         
-    
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -159,22 +174,22 @@ class ConsultationsController extends Controller
        $doc_id=Doctor::select('id')->where('user_id',$id)->first();
        //dd($data);
 
-       // 
+       //
        //dd($cons_id);
        $patients_list= Consultation::where(
         'doctor_id',$doc_id->id
     )->get();
 
-     
+
   //  dd($cons_id);
-        
-              
+
+
     return view('doctors.patients_list',['patients_list'=>$patients_list]);
     }
-    
-    
+
+
     public function update_2($cons_id,$status){
-    
+
     $data=[];
     $data=  Arr::add($data, 'id' , $cons_id);
     $id = Auth::id();
@@ -182,7 +197,7 @@ class ConsultationsController extends Controller
 if($status == 1){
     $link=$this->generateRandomString(10);
      $data=Arr::add($data, 'link' , $link);
-     
+
        Consultation::where([
         'doctor_id'=>$doc_id->id,
         'id'=>$cons_id
@@ -204,5 +219,16 @@ if($status == 1){
     {
         //
     }
-    
+
+    public function consultationRequest($consultation_id)
+    {
+
+        $consultationRequest=Consultation::where('id',$consultation_id)->with('medical_record')->first();
+        //dd($consultationRequest);
+        return view('doctors.consultation',
+
+            ['consultationRequest'=> $consultationRequest]
+
+        );    }
+
 }

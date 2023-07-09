@@ -42,6 +42,67 @@
                             <!--begin::Content-->
                             <div class="flex-grow-1 pt-8 mb-13">
                                 <!--begin::Table-->
+                                <div class="mb-0">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                <li>{{ $errors->first() }}</li>
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <label for="" class="form-label">Select date and time</label>
+                                    <input name="consultation_date" class="form-control form-control-solid"
+                                        placeholder="Pick date & time" id="kt_datepicker_3" />
+
+                                    <label for="" class="form-label mt-2">Symptoms</label>
+                                    <select name="symptoms" class="form-control form-control-solid">
+                                        <option value="cough">Cough</option>
+                                        <option value="fever">Fever</option>
+                                        <option value="headache">Headache</option>
+                                        <option value="sore throat">Sore throat</option>
+                                        <option value="difficulty breathing">Difficulty breathing</option>
+                                        <option value="loss of taste or smell">Loss of taste or smell</option>
+                                        <option value="tiredness">Tiredness</option>
+                                        <option value="aches and pains">Aches and pains</option>
+                                        <option value="runny or stuffy nose">Runny or stuffy nose</option>
+                                        <option value="nausea or vomiting">Nausea or vomiting</option>
+                                        <option value="diarrhea">Diarrhea</option>
+                                        <!-- Add more options as needed -->
+                                    </select>
+
+
+                                    <label for="" class="form-label mt-2">Current Medications</label>
+                                    <input name="current_medications" class="form-control form-control-solid"
+                                        placeholder="Enter current medications" />
+
+                                    <label for="" class="form-label mt-2">Medical History</label>
+                                    <input name="medical_history" class="form-control form-control-solid"
+                                        placeholder="Enter medical history" />
+
+                                    <label for="" class="form-label mt-2">Allergies</label>
+                                    <select name="allergies" class="form-control form-control-solid">
+                                        <option value="dairy">Dairy</option>
+                                        <option value="egg">Egg</option>
+                                        <option value="peanut">Peanut</option>
+                                        <option value="tree nuts">Tree nuts</option>
+                                        <option value="soy">Soy</option>
+                                        <option value="wheat">Wheat</option>
+                                        <option value="fish">Fish</option>
+                                        <option value="shellfish">Shellfish</option>
+                                        <option value="sesame">Sesame</option>
+                                        <!-- Add more options as needed -->
+                                    </select>
+
+                                    <label for="" class="form-label mt-2">Family Medical History</label>
+                                    <input name="family_medical_history" class="form-control form-control-solid"
+                                        placeholder="Enter family medical history" />
+
+                                    <label for="" class="form-label mt-2">Lifestyle Information</label>
+                                    <input name="lifestyle_information" class="form-control form-control-solid"
+                                        placeholder="Enter lifestyle information" />
+                                </div>
+                                <!--end::Modal-->
+                                <br>
                                 <div name="descriptions"class="table-responsive border-bottom mb-14">
                                     <table class="table">
                                         <thead>
@@ -57,27 +118,9 @@
                                                         placeholder="what do you feel ..."></textarea>
                                                 </div>
                                             </td>
-
                                         </tbody>
                                     </table>
                                 </div>
-                                <!--end::Table-->
-                                <!--begin::Section-->
-                                <!--begin::Modal-->
-                                <div class="mb-0">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                <li>{{ $errors->first() }}</li>
-                                            </ul>
-                                        </div>
-                                    @endif
-                                    <label for="" class="form-label">Select date and time</label>
-                                    <input name="consultation_date" class="form-control form-control-solid"
-                                        placeholder="Pick date & time" id="kt_datepicker_3" />
-                                </div>
-                                <!--end::Modal-->
-                                <!--end::Section-->
                             </div>
                             <!--end::Content-->
                             <!--begin::Separator-->

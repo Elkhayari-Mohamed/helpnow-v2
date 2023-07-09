@@ -36,4 +36,9 @@ class Ordonnance extends Model
 
         return $this->belongsTo(Doctor::class);
     }
+    public function medical_record()
+{
+    return $this->hasOne(MedicalRecord::class);
+}
+
 }

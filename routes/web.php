@@ -9,7 +9,7 @@ use App\Http\Controllers\OrdonnancesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ConsultationsController;
 use Illuminate\Support\Facades\Route;
-use app\Http\Controllers\{Patients_listController};
+use app\Http\Controllers\Patients_listController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +29,11 @@ Route::get('/', function () {
     return redirect('patients/index');
 });
 Route::get('/live/{link}',[HomeController::class, 'live'])->name('live');
-Route::get('/balance/{patient_id?}',      [WalletsController::class, 'show'])->name('balance');
+
 
 //Route::get('/index', [DoctorsController::class, 'index'])->name('doctorsIndex');
-    Route::prefix('doctors')->middleware([])->group(function () {
-    
+Route::prefix('doctors')->middleware(['auth'])->group(function () {
+
     Route::get('/',                      [DoctorsController::class, 'index'])->name('doctorsIndex');
     Route::get('/index',                 [DoctorsController::class, 'index'])->name('doctorsIndex');
     Route::get('/create',                [DoctorsController::class, 'create'])->name('doctorsCreate');
@@ -54,15 +54,16 @@ Route::get('/balance/{patient_id?}',      [WalletsController::class, 'show'])->n
     Route::get('/events',              [DoctorsController::class, 'events'])->name('eventsCalendar');
     Route::get('/calendar',              [DoctorsController::class, 'calendar'])->name('doctorsCalendar');
     Route::get('/patient_info/{id?}',     [DoctorsController::class, 'patient_info'])->name('doctorsPatient_info');
-    Route::get('/ordonnance/{id}/{status?}',              [OrdonnancesController::class, 'create'])->name('doctorsRapport');
+    Route::get('/ordonnance/{id}/{status?}',  [OrdonnancesController::class, 'create'])->name('doctorsRapport');
     Route::post('/rapports',              [OrdonnancesController::class, 'store'])->name('doctorsRapport');
     Route::get('/Patients_list', [DoctorsController::class, 'Patients_list'])->name('doctorsPatients_list');
-   //Route::get('/doctors/add_to_list',    [Patients_listController::class, 'Patients_list'])->name('Patients_list');
+    //Route::get('/doctors/add_to_list',    [Patients_listController::class, 'Patients_list'])->name('Patients_list');
     Route::post('/Patients_list',[DoctorsController::class, 'store'])->name('doctorsPatients_list');
     Route::post('/Patients_list/{cons_id}',[ConsultationsController::class, 'update'])->name('status_update');
     Route::get('/Patients_list/{cons_id}/{status}',[ConsultationsController::class, 'update_2'])->name('status_update');
     Route::get('/consultation',[ConsultationsController::class, 'create'])->name('doctorsConsultation');
     Route::post('/consultation',[ConsultationsController::class, 'store'])->name('doctorsConsultation.save');
+    Route::get('/consultation_request/{id?}',[ConsultationsController::class, 'consultationRequest'])->name('consultationRequest');
 
 
 
@@ -70,7 +71,7 @@ Route::get('/balance/{patient_id?}',      [WalletsController::class, 'show'])->n
 
 });
 
-Route::prefix('patients')->middleware([])->group(function () {
+Route::prefix('patients')->middleware(['auth'])->group(function () {
     Route::get('/',            [PatientsController::class, 'index'])->name('patientsIndex');
     Route::get('/index',       [PatientsController::class, 'index'])->name('patientsIndex');
     Route::get('/create',      [PatientsController::class, 'create'])->name('patientsCreate');
@@ -100,9 +101,10 @@ Route::prefix('patients')->middleware([])->group(function () {
     Route::get('/consult/show/{consultation_id}/{payed?}',[ConsultationsController::class, 'show'])->name('ConsultShow');
     Route::get('/ordonnance/{id}',[PatientsController::class, 'ordonnance'])->name('patientsOrdonnance');
     //Route::post('/save',     [ConsultationsController::class, 'store'])->name('patientsSave');
-    
 
 
+
+    Route::get('/balance/{patient_id?}',      [WalletsController::class, 'show'])->name('balance');
 
 });
 

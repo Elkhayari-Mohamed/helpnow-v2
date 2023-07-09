@@ -58,7 +58,7 @@ class WalletsController extends Controller
         if ($user_id == Null){
             
     
-            // dd($id);
+             dd($id);
              $wallet=Wallet::select('balance')->where('patient_id',$user_id)->first();
             // dd($wallet);
             $consultations=Consultation::where('patient_id',$id->id)->get();

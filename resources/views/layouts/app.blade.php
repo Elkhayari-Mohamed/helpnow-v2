@@ -42,6 +42,8 @@ License: For each use you must have a valid license purchased only from above li
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -167,8 +169,7 @@ License: For each use you must have a valid license purchased only from above li
 
                                                 @if (Auth::check() && Auth::user()->type_account == 'patient')
                                                     <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="{{ route('patientsTeam') }}">
+                                                        <a class="menu-link py-3" href="{{ route('patientsTeam') }}">
                                                             <span class="menu-bullet">
                                                                 <span class="bullet bullet-dot"></span>
                                                             </span>
@@ -3381,6 +3382,8 @@ License: For each use you must have a valid license purchased only from above li
     <script src="assets/js/custom/utilities/modals/users-search.js"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 </body>
 <!--end::Body-->
 

@@ -33,7 +33,7 @@ class OrdonnancesController extends Controller
     {
         $patient_infos = Consultation::where(
             'id',$id
-        )->get();
+        )->with(['medical_record'])->get();
       //dd($patient_infos);
        // $patient_id = $patient_infos->patient_id;
 
@@ -55,7 +55,7 @@ class OrdonnancesController extends Controller
       //  dd($data);
         $doc_id=Doctor::select('id')->where('user_id',Auth::id())->first();
         $doctor_info =Doctor::Where('id',$doc_id->id)->first();
-        $email= User::select('email')->where('id',Auth::id())->first();  
+        $email = User::select('email')->where('id',Auth::id())->first();  
 
         Ordonnance::create([
         'consultation_id'=>$request->consultation_id,
