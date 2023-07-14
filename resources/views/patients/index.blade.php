@@ -32,9 +32,6 @@
                 <div class="bg-body shadow-sm card-rounded mx-9 mb-9 px-6 py-9 position-relative z-index-1"
                     style="margin-top: -100px">
                     <!--begin::Item-->
-
-                    @foreach ($consultations as $consultation)
-                    @endforeach
                     <div class="d-flex align-items-center mb-6">
                         <!--begin::Symbol-->
                         <div class="symbol symbol-45px w-40px me-5">
@@ -71,7 +68,7 @@
                             <!--begin::Label-->
                             <div class="d-flex align-items-center">
                                 @php
-                                    $total = $consultation->where(['patient_id' => $patient_id])->count();
+                                    $total = $consultations->where(['patient_id' => $patient_id])->count();
                                     
                                 @endphp
                                 <div class="fw-bolder fs-5 text-gray-800 pe-1">{{ $total }}
@@ -116,7 +113,7 @@
                                 <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">Consultations
                                     Approved</a>
                                 @php
-                                    $count = $consultation->where(['patient_id' => $patient_id, 'status' => 1])->count();
+                                    $count = $consultations->where(['patient_id' => $patient_id, 'status' => 1])->count();
                                 @endphp
                             </div>
                             <!--end::Title-->
@@ -158,7 +155,7 @@
                             <!--begin::Title-->
                             @php
                                 
-                                $count = $consultation->where(['patient_id' => $patient_id, 'payed' => 1])->count();
+                                $count = $consultations->where(['patient_id' => $patient_id, 'payed' => 1])->count();
                             @endphp
                             <div class="mb-1 pe-3 flex-grow-1">
                                 <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">Consultations

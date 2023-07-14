@@ -14,17 +14,18 @@ class Doctor extends Model
         'user_id',
         'Phone',
         'city',
-        'country', 
-        'address', 
+        'country',
+        'address',
         'age',
-        'gender',  
-        'notes',  
+        'gender',
+        'notes',
     ];
 
     public function user()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo(User::class);
     }
+
     public function consultation()
     {
         return $this->hasOne(Doctor::class);
@@ -34,5 +35,12 @@ class Doctor extends Model
     {
         return $this->hasOne(Doctor::class);
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function appointments()
+    {
+        return $this->hasMany(Consultation::class);
+    }
 }
-

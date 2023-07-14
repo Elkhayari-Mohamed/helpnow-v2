@@ -86,6 +86,39 @@
                                 <!--begin::Position-->
                             </div>
                             <!--end::Person-->
+                            <div class="fw-bolder mt-5">Reviews</div>
+
+                            @if (count($list->reviews) > 0)
+                                @php
+                                    $totalStars = 0;
+                                @endphp
+
+                                @foreach ($list->reviews as $review)
+                                    @php
+                                        $totalStars += $review->stars;
+                                    @endphp
+                                @endforeach
+
+                                @php
+                                    $averageRating = $totalStars / count($list->reviews);
+                                    $averageRating = round($averageRating, 0);
+                                @endphp
+
+                                <div class="fw-bolder mt-5">Average Rating:</div>
+
+                                @for ($i = 0; $i < $averageRating; $i++)
+                                    <i class="fas fa-star text-yellow-500"></i>
+                                @endfor
+
+                                @for ($i = 5; $i > $averageRating; $i--)
+                                    <i class="far fa-star text-yellow-500"></i>
+                                @endfor
+                            @else
+                                <div class="text-gray-600">
+                                    This doctor has not been reviewed yet.
+                                </div>
+                            @endif
+
                         </div>
                         <!--end::Item-->
                         <!--end::Item-->

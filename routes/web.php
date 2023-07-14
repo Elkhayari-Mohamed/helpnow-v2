@@ -8,6 +8,7 @@ use App\Http\Controllers\DoctorSpecialitieController;
 use App\Http\Controllers\OrdonnancesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ConsultationsController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use app\Http\Controllers\Patients_listController;
 
@@ -28,7 +29,7 @@ Route::get('/', function () {
 Route::get('/', function () {
     return redirect('patients/index');
 });
-Route::get('/live/{link}',[HomeController::class, 'live'])->name('live');
+Route::get('/live/{link}', [HomeController::class, 'live'])->name('live');
 
 
 //Route::get('/index', [DoctorsController::class, 'index'])->name('doctorsIndex');
@@ -51,24 +52,19 @@ Route::prefix('doctors')->middleware(['auth'])->group(function () {
     Route::get('/reply',                 [DoctorsController::class, 'reply'])->name('doctorsReply');
     Route::get('/chat/private',          [DoctorsController::class, 'private'])->name('doctorsPrivate');
     Route::get('/chat/drawer',           [DoctorsController::class, 'drawer'])->name('doctorsDrawer');
-    Route::get('/events',              [DoctorsController::class, 'events'])->name('eventsCalendar');
+    Route::get('/events',                [DoctorsController::class, 'events'])->name('eventsCalendar');
     Route::get('/calendar',              [DoctorsController::class, 'calendar'])->name('doctorsCalendar');
     Route::get('/patient_info/{id?}',     [DoctorsController::class, 'patient_info'])->name('doctorsPatient_info');
     Route::get('/ordonnance/{id}/{status?}',  [OrdonnancesController::class, 'create'])->name('doctorsRapport');
     Route::post('/rapports',              [OrdonnancesController::class, 'store'])->name('doctorsRapport');
     Route::get('/Patients_list', [DoctorsController::class, 'Patients_list'])->name('doctorsPatients_list');
     //Route::get('/doctors/add_to_list',    [Patients_listController::class, 'Patients_list'])->name('Patients_list');
-    Route::post('/Patients_list',[DoctorsController::class, 'store'])->name('doctorsPatients_list');
-    Route::post('/Patients_list/{cons_id}',[ConsultationsController::class, 'update'])->name('status_update');
-    Route::get('/Patients_list/{cons_id}/{status}',[ConsultationsController::class, 'update_2'])->name('status_update');
-    Route::get('/consultation',[ConsultationsController::class, 'create'])->name('doctorsConsultation');
-    Route::post('/consultation',[ConsultationsController::class, 'store'])->name('doctorsConsultation.save');
-    Route::get('/consultation_request/{id?}',[ConsultationsController::class, 'consultationRequest'])->name('consultationRequest');
-
-
-
-
-
+    Route::post('/Patients_list', [DoctorsController::class, 'store'])->name('doctorsPatients_list');
+    Route::post('/Patients_list/{cons_id}', [ConsultationsController::class, 'update'])->name('status_update');
+    Route::get('/Patients_list/{cons_id}/{status}', [ConsultationsController::class, 'update_2'])->name('status_update');
+    Route::get('/consultation', [ConsultationsController::class, 'create'])->name('doctorsConsultation');
+    Route::post('/consultation', [ConsultationsController::class, 'store'])->name('doctorsConsultation.save');
+    Route::get('/consultation_request/{id?}', [ConsultationsController::class, 'consultationRequest'])->name('consultationRequest');
 });
 
 Route::prefix('patients')->middleware(['auth'])->group(function () {
@@ -84,7 +80,7 @@ Route::prefix('patients')->middleware(['auth'])->group(function () {
     Route::get('/messages',    [PatientsController::class, 'messages'])->name('patientsMsg');
     Route::get('/send',        [PatientsController::class, 'send'])->name('patientsSend');
     Route::get('/reply',       [PatientsController::class, 'reply'])->name('patientsReply');
-    Route::get('/chat/private',[PatientsController::class, 'private'])->name('patientsPrivate');
+    Route::get('/chat/private', [PatientsController::class, 'private'])->name('patientsPrivate');
     Route::get('/chat/drawer', [PatientsController::class, 'drawer'])->name('patientsDrawer');
     Route::get('/events',      [PatientsController::class, 'events'])->name('eventsCalendar');
     Route::get('/calendar',    [PatientsController::class, 'calendar'])->name('patientsCalendar');
@@ -93,19 +89,19 @@ Route::prefix('patients')->middleware(['auth'])->group(function () {
     Route::get('/ourdoctors',  [PatientsController::class, 'ourdoctors'])->name('patientsOurdoctors');
     Route::post('/ourdoctors',  [PatientsController::class, 'ourdoctors'])->name('patientsOurdoctors');
     Route::get('/doctorsbyspecialitie/{name?}',  [PatientsController::class, 'doctorsbyspecialitie'])->name('doctors.specialitie');
-    Route::get('/doctorcontact/{id}',[PatientsController::class, 'doctorcontact'])->name('patientsDoctorcontact');
+    Route::get('/doctorcontact/{id}', [PatientsController::class, 'doctorcontact'])->name('patientsDoctorcontact');
     Route::post('/myprofile',    [PatientsController::class, 'store'])->name('patientsComplete_profile');
     Route::get('/myprofile',     [PatientsController::class, 'store'])->name('patientsComplete_profile');
-    Route::get('/consultation/{id}',[ConsultationsController::class, 'create'])->name('patientsConsultation');
-    Route::post('/consultation/{id}',[ConsultationsController::class, 'store'])->name('patientsConsultation.save');
-    Route::get('/consult/show/{consultation_id}/{payed?}',[ConsultationsController::class, 'show'])->name('ConsultShow');
-    Route::get('/ordonnance/{id}',[PatientsController::class, 'ordonnance'])->name('patientsOrdonnance');
+    Route::get('/consultation/{id}', [ConsultationsController::class, 'create'])->name('patientsConsultation');
+    Route::post('/consultation/{id}', [ConsultationsController::class, 'store'])->name('patientsConsultation.save');
+    Route::get('/consult/show/{consultation_id}/{payed?}', [ConsultationsController::class, 'show'])->name('ConsultShow');
+    Route::get('/ordonnance/{id}', [PatientsController::class, 'ordonnance'])->name('patientsOrdonnance');
     //Route::post('/save',     [ConsultationsController::class, 'store'])->name('patientsSave');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews');
 
 
 
     Route::get('/balance/{patient_id?}',      [WalletsController::class, 'show'])->name('balance');
-
 });
 
 require __DIR__ . '/auth.php';

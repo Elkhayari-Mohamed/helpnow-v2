@@ -13,6 +13,7 @@ use App\Models\Specialty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+
 class DoctorsController extends Controller
 {
     /**
@@ -22,19 +23,19 @@ class DoctorsController extends Controller
      */
     public function index()
     {
-        $user_id=Auth::user()->id;
-        $id=Doctor::select('id')->where('user_id',$user_id)->first();
+        $user_id = Auth::user()->id;
+        $id = Doctor::select('id')->where('user_id', $user_id)->first();
 
-       //dd($wallet);
-       $consultations=Consultation::where('doctor_id',$id->id)->get();
-       $balance=$consultations->where('payed','1')->sum('price');
+        //dd($wallet);
+        $consultations = Consultation::where('doctor_id', $id->id)->get();
+        $balance = $consultations->where('payed', '1')->sum('price');
 
-      //dd($balance);
+        //dd($balance);
 
-        return view('doctors.index',[
-            'consultations'=>$consultations,
+        return view('doctors.index', [
+            'consultations' => $consultations,
             'balance' => $balance
-    ]);
+        ]);
         //return view('doctors.index')->withErrors(['Please Charge Your Balance']);;
     }
 
@@ -57,25 +58,24 @@ class DoctorsController extends Controller
     public function store(Request $Doctor)
     {
 
-        $specialities = Specialitie::select('name','description')->get();
+        $specialities = Specialitie::select('name', 'description')->get();
 
         Doctor::create([
-             'user_id'             =>$Doctor->user_id=Auth::id(),
-             'first_name'          =>$Doctor->first_name,
-             'last_name'           =>$Doctor->last_name,
-             'specialitie_name'    =>$Doctor->specialitie_name,
-             'Phone'               =>$Doctor->phone,
-             'city'                =>$Doctor->city,
-             'country'             =>$Doctor->country,
-             'address'             =>$Doctor->address,
-             'age'                 =>$Doctor->age,
-             'gender'              =>$Doctor->gender,
-             'notes'               =>$Doctor->notes,
+            'user_id'             => $Doctor->user_id = Auth::id(),
+            'first_name'          => $Doctor->first_name,
+            'last_name'           => $Doctor->last_name,
+            'specialitie_name'    => $Doctor->specialitie_name,
+            'Phone'               => $Doctor->phone,
+            'city'                => $Doctor->city,
+            'country'             => $Doctor->country,
+            'address'             => $Doctor->address,
+            'age'                 => $Doctor->age,
+            'gender'              => $Doctor->gender,
+            'notes'               => $Doctor->notes,
 
         ]);
 
-        return redirect()->route('doctorsIndex',['specialities'=> $specialities]);
-
+        return redirect()->route('doctorsIndex', ['specialities' => $specialities]);
     }
 
     /**
@@ -88,13 +88,15 @@ class DoctorsController extends Controller
     {
 
         $id = Auth::id();
-        $info =Doctor::where('user_id',$id)->get();
+        $info = Doctor::where('user_id', $id)->get();
 
 
-        return view('doctors.show',
-        [
-            'infos' => $info,]
-    );
+        return view(
+            'doctors.show',
+            [
+                'infos' => $info,
+            ]
+        );
     }
 
     /**
@@ -105,14 +107,14 @@ class DoctorsController extends Controller
      */
     public function edit()
     {
-        $id=Auth::id();
+        $id = Auth::id();
 
-        $info = Doctor::where('user_id',$id)->get();
-        $specialities = Specialitie::select('name','description')->get();
+        $info = Doctor::where('user_id', $id)->get();
+        $specialities = Specialitie::select('name', 'description')->get();
 
-        return view('doctors.edit',[
+        return view('doctors.edit', [
             'doctor' => $info,
-            'specialities'=> $specialities
+            'specialities' => $specialities
         ]);
     }
 
@@ -125,7 +127,7 @@ class DoctorsController extends Controller
      */
     public function update(Request $request)
     {
-        $data=[];
+        $data = [];
         $data =  $request->all();
         $user_id = Auth::id();
         User::find($user_id)->update([
@@ -150,11 +152,10 @@ class DoctorsController extends Controller
         //unset($data['specialitie_name']);
         unset($data['_token']);
 
-        Doctor::where('user_id',$user_id)->update($data);
+        Doctor::where('user_id', $user_id)->update($data);
         //dd($data,$user_id);
         return redirect('/doctors/overview')
             ->with('success', 'Product updated successfully');
-
     }
 
     /**
@@ -187,7 +188,8 @@ class DoctorsController extends Controller
     {
         return view('doctors.send');
     }
-    function private (Doctor $doctor) {
+    function private(Doctor $doctor)
+    {
         return view('doctors.pvchat');
     }
     public function drawer(Doctor $doctor)
@@ -197,29 +199,30 @@ class DoctorsController extends Controller
     public function events(Doctor $doctor)
     {
 
-        $id=Auth::id();
+        $id = Auth::id();
 
-        $doc_id=Doctor::select('id')->where('user_id',$id)->first();
-           // $data = $request->all();
+        $doc_id = Doctor::select('id')->where('user_id', $id)->first();
+        // $data = $request->all();
         // $data = request()->all();
         $dateToday = new \DateTime(date("Y-m-d"));
 
         $patients = Consultation::where(
-            'doctor_id',$doc_id->id
+            'doctor_id',
+            $doc_id->id
         )->get();
 
-     //dd($patient->patient->first_name);
+        //dd($patient->patient->first_name);
         $events_array = [];
         foreach ($patients as $patient) {
             $color = '#378006';
             $date = $patient->consultation_date;
             $event = [
                 "id" => $patient->id,
-                "title" =>$patient->patient->first_name." ".$patient->patient->last_name,
+                "title" => $patient->patient->first_name . " " . $patient->patient->last_name,
                 "start" => $date,
                 "eventColor" => $color
             ];
-            array_push($events_array,$event);
+            array_push($events_array, $event);
         }
         return response()->json($events_array);
         //return response(view('doctors.calendar',[response()->json($events_array)]));
@@ -233,49 +236,51 @@ class DoctorsController extends Controller
     }
 
 
-    public function patient_info(Doctor $doctor,$id)
+    public function patient_info(Doctor $doctor, $id)
     {
         $patient_info = Consultation::where(
-            'id',$id
+            'id',
+            $id
         )->first();
-     //  dd($patient_info->doctor_id);
+        //  dd($patient_info->doctor_id);
         $uid = $patient_info->patient_id;
-        $user_id = Patient::
-            where('id', $uid)
+        $user_id = Patient::where('id', $uid)
             ->first();
-        $consultations=Consultation::where([
-            'patient_id'=>$uid,
-            'doctor_id'=>$patient_info->doctor_id
+        $consultations = Consultation::where([
+            'patient_id' => $uid,
+            'doctor_id' => $patient_info->doctor_id
         ])->get();
-       $count= $consultations->count();
-      // dd($consultations->count());
-        $email= User::select('email')->where('id',$user_id->user_id)->first();
-        return view('doctors.patient_info',[
-            'patient_info'=>$user_id,
-            'consultations'=>$consultations,
+        $count = $consultations->count();
+        // dd($consultations->count());
+        $email = User::select('email')->where('id', $user_id->user_id)->first();
+        return view('doctors.patient_info', [
+            'patient_info' => $user_id,
+            'consultations' => $consultations,
             'count' => $count,
             'id',
-            'email'=>$email
+            'email' => $email
         ]);
-
     }
 
     public function patients_list(Doctor $doctor)
     {
-        $id=Auth::id();
+        $id = Auth::id();
 
-        $doc_id=Doctor::select('id')->where('user_id',$id)->first();
+        $doc_id = Doctor::select('id')->where('user_id', $id)->first();
 
 
-        $patients_list= Consultation::where(
-            'doctor_id',$doc_id->id
+        $patients_list = Consultation::where(
+            'doctor_id',
+            $doc_id->id
         )->get();
 
-     // dd($patients_list->doctor->first_name);
+        // dd($patients_list->doctor->first_name);
 
-        return view('doctors.patients_list',
+        return view(
+            'doctors.patients_list',
 
-            ['patients_list'=>$patients_list]  );
+            ['patients_list' => $patients_list]
+        );
     }
     public function rapport(Doctor $doctor)
     {
@@ -286,6 +291,4 @@ class DoctorsController extends Controller
     {
         return view('doctors.consultation');
     }
-
-
 }

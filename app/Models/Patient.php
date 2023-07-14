@@ -15,11 +15,11 @@ class Patient extends Model
         'user_id',
         'Phone',
         'city',
-        'country', 
-        'address', 
+        'country',
+        'address',
         'age',
-        'gender',  
-        'notes',  
+        'gender',
+        'notes',
     ];
 
     public function user()
@@ -35,6 +35,12 @@ class Patient extends Model
     {
         return $this->hasOne(Wallet::class);
     }
-    
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function appointments()
+    {
+        return $this->hasMany(Consultation::class);
+    }
 }
-
