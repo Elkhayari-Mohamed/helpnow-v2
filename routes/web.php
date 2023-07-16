@@ -9,6 +9,7 @@ use App\Http\Controllers\OrdonnancesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ConsultationsController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 use app\Http\Controllers\Patients_listController;
 
@@ -30,6 +31,8 @@ Route::get('/', function () {
     return redirect('patients/index');
 });
 Route::get('/live/{link}', [HomeController::class, 'live'])->name('live');
+
+
 
 
 //Route::get('/index', [DoctorsController::class, 'index'])->name('doctorsIndex');
@@ -67,7 +70,13 @@ Route::prefix('doctors')->middleware(['auth'])->group(function () {
     Route::get('/consultation_request/{id?}', [ConsultationsController::class, 'consultationRequest'])->name('consultationRequest');
 });
 
+Route::get('/chat', function () {
+    return view('patients.chat');
+});
+Route::post('/api/chat', [ChatController::class, 'getResponse']);
+
 Route::prefix('patients')->middleware(['auth'])->group(function () {
+
     Route::get('/',            [PatientsController::class, 'index'])->name('patientsIndex');
     Route::get('/index',       [PatientsController::class, 'index'])->name('patientsIndex');
     Route::get('/create',      [PatientsController::class, 'create'])->name('patientsCreate');
@@ -98,6 +107,7 @@ Route::prefix('patients')->middleware(['auth'])->group(function () {
     Route::get('/ordonnance/{id}', [PatientsController::class, 'ordonnance'])->name('patientsOrdonnance');
     //Route::post('/save',     [ConsultationsController::class, 'store'])->name('patientsSave');
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews');
+
 
 
 

@@ -28,7 +28,7 @@ class Doctor extends Model
 
     public function consultation()
     {
-        return $this->hasOne(Doctor::class);
+        return $this->hasOne(Consultation::class);
     }
 
     public function specialitie()

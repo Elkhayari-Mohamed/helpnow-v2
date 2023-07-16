@@ -24,13 +24,14 @@ class Patient extends Model
 
     public function user()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(User::class);
     }
 
     public function consultation()
     {
         return $this->hasOne(Consultation::class);
     }
+
     public function wallet()
     {
         return $this->hasOne(Wallet::class);

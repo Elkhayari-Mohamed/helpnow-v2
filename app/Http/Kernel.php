@@ -48,7 +48,8 @@ class Kernel extends HttpKernel
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('reminders:send')->daily();
+        $schedule->command('appointment:reminders')
+            ->everyMinute();
     }
 
 

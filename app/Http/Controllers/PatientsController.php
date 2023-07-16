@@ -61,7 +61,7 @@ class PatientsController extends Controller
         unset($data['balance']);
 
         Patient::create([
-            'user_id'      => $Patient->user_id = Auth::id(),
+            'user_id'      => $Patient->Auth::user()->id,
             'first_name'   => $Patient->first_name,
             'last_name'    => $Patient->last_name,
             'Phone'        => $Patient->phone,

@@ -61,7 +61,7 @@ class DoctorsController extends Controller
         $specialities = Specialitie::select('name', 'description')->get();
 
         Doctor::create([
-            'user_id'             => $Doctor->user_id = Auth::id(),
+            'user_id'             => $Doctor->Auth::id(),
             'first_name'          => $Doctor->first_name,
             'last_name'           => $Doctor->last_name,
             'specialitie_name'    => $Doctor->specialitie_name,

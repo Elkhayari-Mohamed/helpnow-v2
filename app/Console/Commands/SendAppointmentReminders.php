@@ -59,14 +59,15 @@ class SendAppointmentReminders extends Command
             $this->sendEmail(
                 $consultation->doctor->user->email,
                 "Appointment Reminder",
-                "You have a consultation tomorrow at {$consultation->consultation_time}"
+                "You have a consultation tomorrow at {$consultation->consultation_date} With {$consultation->patient->first_name} {$consultation->patient->last_name}"
             );
 
             // Send email to patient
             $this->sendEmail(
+
                 $consultation->patient->user->email,
                 "Appointment Reminder",
-                "You have a consultation tomorrow at {$consultation->consultation_time}"
+                "You have a consultation tomorrow at {$consultation->consultation_date} With {$consultation->doctor->first_name} {$consultation->doctor->last_name}"
             );
         }
     }
@@ -97,8 +98,10 @@ class SendAppointmentReminders extends Command
     protected function sendEmail(string $email, string $subject, string $body)
     {
         Mail::raw($body, function ($message) use ($email, $subject) {
-            $message->from('simo.nrt.99@gmail.com
-            ', 'El Khayari Mohamed');
+            $message->from(
+                'teleconsult.support@gmail.com',
+                'Teleconsult Support'
+            );
             $message->to($email)->subject($subject);
         });
     }

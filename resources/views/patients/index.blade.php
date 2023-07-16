@@ -271,10 +271,82 @@
                 @endforeach
 
                 <!--end::Item-->
+                <div class="my-chat-widget">
+                    <input type="checkbox" id="my-chat-check">
+                    <label class="my-chat-btn" for="my-chat-check">
+                        <i class="fas fa-comments"> Consult our AI</i>
+                        <i class="fas fa-times"> Close</i>
+                    </label>
+                    <div class="my-chat-content">
+                        <div class="my-chat-header">
+                            Let's Chat - Online
+                        </div>
+                        <div class="my-chat-body" id="chatbot">
+                            Please enter your symptoms!
+                            <div id="chat-log" class="my-chat-log"></div>
+                            <form id="chat-form" class="my-chat-form">
+                                <input type="text" id="input-field" name="message"
+                                    placeholder="Enter your symptoms here..." required>
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
             <!--end::Body-->
         </div>
         <!--end::List Widget 9-->
-
     </div>
+    <script>
+        window.onload = function() {
+            document.querySelector("#chat-button").addEventListener("click", function() {
+                let chatbot = document.querySelector("#chatbot");
+                if (chatbot.style.display === "none") {
+                    chatbot.style.display = "block";
+                } else {
+                    chatbot.style.display = "none";
+                }
+            });
+        };
+    </script>
+    <style>
+        #chat-log {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .UserMessage {
+            align-self: flex-end;
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+        }
+
+        .UserMessage .messageBubble {
+            background-color: #007BFF;
+            color: #FFF;
+            border-radius: 15px;
+            padding: 10px 20px;
+            margin-left: 20px;
+            max-width: 70%;
+        }
+
+        .AIMessage {
+            align-self: flex-start;
+            display: flex;
+            justify-content: flex-start;
+            padding: 10px;
+        }
+
+        .AIMessage .messageBubble {
+            background-color: #E0E0E0;
+            color: #000;
+            border-radius: 15px;
+            padding: 10px 20px;
+            margin-right: 20px;
+            max-width: 70%;
+        }
+    </style>
 @endsection
