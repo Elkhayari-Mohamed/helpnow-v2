@@ -261,12 +261,11 @@
                                                     @else
                                                         <a href=" {{ route('patientsOrdonnance', ['id' => $consultation->id]) }}"
                                                             class="btn btn-light bnt-active-light-primary btn-sm">View</a>
-                                                        <a href="live/{{ $consultation['link'] }}"
-                                                            class="btn btn-light bnt-active-light-primary btn-sm">
-
-                                                            <!--end::Svg Icon-->Go Live
-                                                        </a>
+                                                        <a href="{{ route('live', ['link' => $consultation['link']]) }}"
+                                                            class="btn btn-light bnt-active-light-primary btn-sm">Go
+                                                            Live</a>
                                                     @endif
+
                                                 </div>
                                                 <!--end::Action-->
                                             </div>
@@ -374,8 +373,8 @@
                     </script>
                     <style>
                         /* .rating-stars ul > li.star {
-                                    display: inline-block;
-                                } */
+                                        display: inline-block;
+                                    } */
 
                         /* Idle State of the stars */
                         .rating-stars ul>li.star>i.fa {

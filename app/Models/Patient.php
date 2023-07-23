@@ -20,6 +20,9 @@ class Patient extends Model
         'age',
         'gender',
         'notes',
+        'stripe_id',
+        'card_last_four',
+        'card_brand',
     ];
 
     public function user()

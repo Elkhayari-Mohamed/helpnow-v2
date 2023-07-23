@@ -13,11 +13,15 @@ class ChatController extends Controller
     {
         $message = $request->input('message');
         // Append the user's message to the conversation history
+        if (strlen($message) < 3) {
+            // early return a message asking for more information
+            return response()->json(['response' => 'Please provide more information!', 'history' => session()->get('history')]);
+        }
         $history = session()->get('history', []);
         $history[] = 'User: ' . $message;
         session()->put('history', $history);
 
-        $prompt = implode("\n", $history);
+        $prompt = $this->preparePrompt($history);
 
         $response = $this->getCompletion($prompt);
         $completion = trim($response['choices'][0]['text']);
@@ -32,7 +36,19 @@ class ChatController extends Controller
 
         return response()->json(['response' => $completion, 'history' => $history]);
     }
-
+    private function preparePrompt(array $history): string
+    {
+        // Define a separator for the exchanges
+        $separator = "\n\n[end of message]\n\n";
+        // Split the history into exchanges
+        $exchanges = explode($separator, implode("\n", $history));
+        // Use the last few exchanges as the context
+        $context = array_slice($exchanges, -5);  // adjust the number as needed
+        // Prepare the prompt
+        $prompt = implode($separator, $context);
+        // Return the prompt
+        return $prompt;
+    }
     private function getCompletion($prompt)
     {
         $apiKey = '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';
@@ -56,5 +72,11 @@ class ChatController extends Controller
         }
 
         return $response->json();
+    }
+
+    public function clearChat(Request $request)
+    {
+        $request->session()->forget('history');
+        return response()->json(['status' => 'success']);
     }
 }

@@ -217,10 +217,7 @@ class PatientsController extends Controller
     {
         return view('patients.team');
     }
-    public function bill(Patient $Patient)
-    {
-        return view('patients.bill');
-    }
+
 
     public function ourdoctors(Patient $Patient)
     {
@@ -234,11 +231,14 @@ class PatientsController extends Controller
     {
         //dd($specialitie_name);
         $list = Doctor::where('specialitie_name', $name)->get();
-        //  dd($list);
+        //dd($name);
 
         return view(
             'patients.doctorsbyspecialitie',
-            ['listdoctors' => $list]
+            [
+                'listdoctors' => $list,
+                'speciality' => $name
+            ]
         );
     }
 

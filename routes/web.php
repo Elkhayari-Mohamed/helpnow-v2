@@ -74,8 +74,16 @@ Route::get('/chat', function () {
     return view('patients.chat');
 });
 Route::post('/api/chat', [ChatController::class, 'getResponse']);
+Route::post('/api/clear-chat', [ChatController::class, 'getResponse']);
+Route::get('/billing',       [WalletsController::class, 'billing'])->name('billing');
+Route::get('/checkout',       [WalletsController::class, 'checkout'])->name('checkout');
+Route::post('/charge',     [WalletsController::class, 'charge'])->name('charge');
+Route::post('/walletcreate',     [WalletsController::class, 'create'])->name('create');
+Route::post('/save-card-details',     [WalletsController::class, 'saveCardDetails'])->name('saveCardDetails');
+Route::post('/card-actions',     [WalletsController::class, 'CardActions'])->name('CardActions');
 
 Route::prefix('patients')->middleware(['auth'])->group(function () {
+
 
     Route::get('/',            [PatientsController::class, 'index'])->name('patientsIndex');
     Route::get('/index',       [PatientsController::class, 'index'])->name('patientsIndex');
@@ -94,7 +102,6 @@ Route::prefix('patients')->middleware(['auth'])->group(function () {
     Route::get('/events',      [PatientsController::class, 'events'])->name('eventsCalendar');
     Route::get('/calendar',    [PatientsController::class, 'calendar'])->name('patientsCalendar');
     Route::get('/team',        [PatientsController::class, 'team'])->name('patientsTeam');
-    Route::get('/bills',       [PatientsController::class, 'bill'])->name('patientsBills');
     Route::get('/ourdoctors',  [PatientsController::class, 'ourdoctors'])->name('patientsOurdoctors');
     Route::post('/ourdoctors',  [PatientsController::class, 'ourdoctors'])->name('patientsOurdoctors');
     Route::get('/doctorsbyspecialitie/{name?}',  [PatientsController::class, 'doctorsbyspecialitie'])->name('doctors.specialitie');

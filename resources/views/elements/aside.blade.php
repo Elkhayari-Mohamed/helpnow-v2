@@ -119,6 +119,17 @@
                         </div>
                         <div class="menu-sub menu-sub-accordion menu-active-bg">
                             <div class="menu-item">
+                                <a class="menu-link  {{ str_contains(Route::currentRouteName(), 'billing') ? 'active' : '' }}"
+                                    href="{{ route('billing') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">My Billing</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            <div class="menu-item">
                                 <a class="menu-link {{ str_contains(Route::currentRouteName(), 'Career') ? 'active' : '' }}"
                                     href="{{ Auth::user()->type_account == 'doctor' ? route('doctorsCareer') : route('patientsCareer') }}">
                                     <span class="menu-bullet">
@@ -162,19 +173,6 @@
                                 <span class="menu-title">Edit Profil</span>
                             </a>
                         </div>
-
-                        <!-- <div class="menu-item">
-                            <a class="menu-link  {{ str_contains(Route::currentRouteName(), 'Bills') ? 'active' : '' }}"
-                                href="{{ route('patientsBills') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">My Bills</span>
-                            </a>
-                        </div> -->
-
-
-
                     </div>
                 </div>
 

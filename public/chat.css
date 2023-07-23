@@ -1,8 +1,10 @@
 .my-chat-widget {
     position: fixed;
     bottom: 0;
-    right: 0;
+    right: 13px;
     z-index: 9999;
+    overflow-y: auto;
+
 }
 
 .my-chat-btn {
@@ -80,40 +82,4 @@
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
-}
-#chat-log {
-    display: flex;
-    flex-direction: column;
-}
-
-.UserMessage {
-    align-self: flex-end;
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-}
-
-.UserMessage .messageBubble {
-    background-color: #007BFF;
-    color: #FFF;
-    border-radius: 15px;
-    padding: 10px 20px;
-    margin-left: 20px;
-    max-width: 70%;
-}
-
-.AIMessage {
-    align-self: flex-start;
-    display: flex;
-    justify-content: flex-start;
-    padding: 10px;
-}
-
-.AIMessage .messageBubble {
-    background-color: #E0E0E0;
-    color: #000;
-    border-radius: 15px;
-    padding: 10px 20px;
-    margin-right: 20px;
-    max-width: 70%;
 }

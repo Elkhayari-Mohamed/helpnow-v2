@@ -9,8 +9,7 @@
             <!--begin::Followers toolbar-->
             <!--end::Followers toolbar-->
             <!--begin::Row-->
-            @foreach ($listdoctors as $list)
-            @endforeach
+
             <div class="row g-6 mb-6 g-xl-9 mb-xl-9">
                 <!--begin::Followers-->
                 <!--begin::Col-->
@@ -20,7 +19,7 @@
                     <!--begin::Overlay-->
                     <div class="overlay">
                         <!--begin::Image-->
-                        <img class="w-100 card-rounded" src="assets/media/stock/1600x800/{{ $list->specialitie_name }}.jpg"
+                        <img class="w-100 card-rounded" src="assets/media/stock/1600x800/{{ $speciality }}.jpg"
                             alt="" />
                         <!--end::Image-->
                         <!--begin::Links-->
@@ -35,7 +34,7 @@
                 <div class="text-center mb-18">
                     <!--begin::Title-->
 
-                    <h3 class="fs-2hx text-dark mb-6">{{ $list->specialitie_name }}</h3>
+                    <h3 class="fs-2hx text-dark mb-6">{{ $speciality }}</h3>
                     <!--end::Title-->
                     <!--begin::Text-->
                     <!--end::Text-->

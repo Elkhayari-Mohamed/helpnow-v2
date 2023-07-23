@@ -63,6 +63,7 @@
 
                 <!--end::Content-->
             </div>
+
             <!--end::Item-->
         @endforeach
     </div>

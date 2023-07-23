@@ -11,8 +11,8 @@ class Wallet extends Model
 
     protected $fillable = [
         'patient_id',
-        'balance' => 1500,
-    ]; 
+        'balance' => 0,
+    ];
 
 
     public function patient()
@@ -20,4 +20,3 @@ class Wallet extends Model
         return $this->belongsTo(Patient::class);
     }
 }
-

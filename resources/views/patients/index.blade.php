@@ -271,27 +271,32 @@
                 @endforeach
 
                 <!--end::Item-->
-                <div class="my-chat-widget">
-                    <input type="checkbox" id="my-chat-check">
-                    <label class="my-chat-btn" for="my-chat-check">
-                        <i class="fas fa-comments"> Consult our AI</i>
-                        <i class="fas fa-times"> Close</i>
+                <div class="chat-widget">
+                    <input hidden type="checkbox" id="chat-toggle">
+                    <label class="chat-btn" for="chat-toggle">
+                        <span id="open-chat">
+                            <i class="fas fa-comments"></i> Consult our AI
+                        </span>
+                        <span id="close-chat" style="display:none;">
+                            <i class="fas fa-times"></i> Close
+                        </span>
                     </label>
-                    <div class="my-chat-content">
-                        <div class="my-chat-header">
+
+                    <div class="chat-content">
+                        <div class="chat-header">
                             Let's Chat - Online
                         </div>
-                        <div class="my-chat-body" id="chatbot">
-                            Please enter your symptoms!
-                            <div id="chat-log" class="my-chat-log"></div>
-                            <form id="chat-form" class="my-chat-form">
-                                <input type="text" id="input-field" name="message"
+                        <div class="chat-body">
+                            <div class="chat-log" id="chat-log"></div>
+                            <form id="chat-form" class="chat-form">
+                                <input type="text" class="select-textarea" id="input-field" name="message"
                                     placeholder="Enter your symptoms here..." required>
                                 <button type="submit">Submit</button>
                             </form>
                         </div>
                     </div>
                 </div>
+
 
 
             </div>
@@ -310,43 +315,140 @@
                 }
             });
         };
+
+        function scrollToBottom() {
+            const chatLog = document.querySelector('#chat-log');
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+
+        document.getElementById('chat-toggle').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('open-chat').style.display = "none";
+                document.getElementById('close-chat').style.display = "block";
+            } else {
+                document.getElementById('open-chat').style.display = "block";
+                document.getElementById('close-chat').style.display = "none";
+            }
+        });
+
+        // Call this function whenever a new message is added.
+        scrollToBottom();
     </script>
     <style>
-        #chat-log {
+        /* Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 300px;
+            max-height: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
             display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        /* Chat Button */
+        .chat-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1a73e8;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-btn:hover {
+            background-color: #185abc;
+        }
+
+        /* Chat Content */
+        .chat-content {
+            display: none;
+            flex-grow: 1;
             flex-direction: column;
         }
 
-        .UserMessage {
-            align-self: flex-end;
+        #chat-toggle:checked~.chat-content {
+            display: block;
+        }
+
+        /* Chat Header */
+        .chat-header {
+            background-color: #f1f3f4;
+            color: #202124;
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            border-bottom: 1px solid #dadce0;
+        }
+
+        /* Chat Body */
+        .chat-body {
             display: flex;
-            justify-content: flex-end;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+            padding: 15px;
+        }
+
+        /* Chat Log */
+        .chat-log {
+            flex-grow: 1;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
             padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 15px;
         }
 
-        .UserMessage .messageBubble {
-            background-color: #007BFF;
-            color: #FFF;
-            border-radius: 15px;
-            padding: 10px 20px;
-            margin-left: 20px;
-            max-width: 70%;
-        }
-
-        .AIMessage {
-            align-self: flex-start;
+        /* Chat Form */
+        .chat-form {
             display: flex;
-            justify-content: flex-start;
-            padding: 10px;
         }
 
-        .AIMessage .messageBubble {
-            background-color: #E0E0E0;
-            color: #000;
-            border-radius: 15px;
-            padding: 10px 20px;
-            margin-right: 20px;
-            max-width: 70%;
+        /* Input Field */
+        #input-field {
+            flex-grow: 1;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 10px;
+            outline: none;
+            margin-right: 10px;
+        }
+
+        /* Submit Button */
+        .chat-form button {
+            background-color: #1a73e8;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box;
+            /* new property */
+
+        }
+
+        .chat-form button:hover {
+            background-color: #185abc;
+        }
+
+        .select-textarea {
+            margin: 0px;
+            margin-right: 0px;
+            font-family: initial;
+            font-size: small;
+            line-height: initial;
         }
     </style>
 @endsection
