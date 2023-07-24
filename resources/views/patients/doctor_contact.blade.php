@@ -126,7 +126,7 @@
                 <!--begin:::Tab item-->
                 <li class="nav-item">
                     <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
-                        href="#kt_user_view_overview_tab">Consult</a>
+                        href="#kt_user_view_overview_tab">Consultation Requests</a>
                 </li>
                 <!--end:::Tab item-->
                 <!--begin:::Tab item-->

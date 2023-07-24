@@ -7,7 +7,7 @@
             <div class="mw-lg-950px mx-auto w-100">
                 <!-- begin::Header-->
                 <div class="d-flex justify-content-between flex-column flex-sm-row mb-19">
-                    <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">Ordonnance</h4>
+                    <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">E-Prescription</h4>
                     <!--end::Logo-->
                     <div class="fs-6 text-gray-800 fw-bold mb-8">
                         {{ $ordonnance_info[0]->doctor_adresse }}

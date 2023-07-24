@@ -458,7 +458,7 @@
                                     <a href="doctors/ordonnance/{{ $list['id'] }}" class="btn btn-sm btn-light-primary">
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
 
-                                        write Ordannence
+                                        write Prescription
                                     </a>
                                 </td>
                             @endif
