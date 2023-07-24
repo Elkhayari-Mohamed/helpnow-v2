@@ -37,8 +37,8 @@
                     <!--begin::Input group-->
                     <div class="fv-row mb-7">
                         <label class="form-label fw-bolder text-dark fs-6">Email</label>
-                        <input id="email" class="form-control form-control-lg form-control-solid" type="email" name="email"
-                            :value="old('email')" required />
+                        <input id="email" class="form-control form-control-lg form-control-solid" type="email"
+                            name="email" :value="old('email')" required />
                     </div>
                     <!--end::Input group-->
                     <!--begin::Input group-->
@@ -50,8 +50,8 @@
                             <!--end::Label-->
                             <!--begin::Input wrapper-->
                             <div class="position-relative mb-3">
-                                <input id="password" class="form-control form-control-lg form-control-solid" type="password"
-                                    name="password" required autocomplete="new-password" /> <span
+                                <input id="password" class="form-control form-control-lg form-control-solid"
+                                    type="password" name="password" required autocomplete="new-password" /> <span
                                     class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
                                     data-kt-password-meter-control="visibility">
                                     <i class="bi bi-eye-slash fs-2"></i>
@@ -83,11 +83,11 @@
                     </div>
                     <!--end::Input group-->
                     <div class="fv-row mb-5">
-                            <label class="form-label fw-bolder text-dark fs-6">Are You ?</label>
-                            <select required class="form-control form-control-lg form-control-solid" name="type_account">
-                             <option value="doctor"> doctor </option>
-                             <option value="patient"> patient </option>
-                            </select>            
+                        <label class="form-label fw-bolder text-dark fs-6">Are You ?</label>
+                        <select required class="form-control form-control-lg form-control-solid" name="type_account">
+                            <option value="doctor"> doctor </option>
+                            <option value="patient"> patient </option>
+                        </select>
                     </div>
                     <!--end::Input group-->
                     <!--begin::Input group-->
@@ -97,7 +97,7 @@
                             <span class="form-check-label fw-bold text-gray-700 fs-6">I Agree
                                 <a href="#" class="ms-1 link-primary">Terms and conditions</a>.</span>
                         </label>
-                       
+
                     </div>
                     <!--end::Input group-->
                     <!--begin::Actions-->
@@ -105,9 +105,9 @@
                         <button type="submit" class="btn btn-primary">
 
                             {{ __('register') }}
-                   
+
                         </button>
-                    </div>  
+                    </div>
                     <!--end::Actions-->
                 </form>
                 <!--end::Form-->
@@ -128,4 +128,9 @@
         </div>
         <!--end::Footer-->
     </div>
+    <style>
+        .h-60px {
+            height: 126px !important;
+        }
+    </style>
 @endsection

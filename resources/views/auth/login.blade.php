@@ -65,26 +65,31 @@
                                 </button>
                                 <!--end::Submit button-->
                                 <!--begin:
-                                            <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
-                            
-                                            <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-                                                <img alt="Logo" src="assets/media/svg/brand-logos/google-icon.svg"
-                                                    class="h-20px me-3" />Continue with Google</a>
-                             
-                                            <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-                                                <img alt="Logo" src="assets/media/svg/brand-logos/facebook-4.svg"
-                                                    class="h-20px me-3" />Continue with Facebook</a>
-                             
-                                            <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100">
-                                                <img alt="Logo" src="assets/media/svg/brand-logos/apple-black.svg"
-                                                    class="h-20px me-3" />Continue with Apple</a>
-                            
-                                        </div>
-                                   send::Actions-->
+                                                            <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
+
+                                                            <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
+                                                                <img alt="Logo" src="assets/media/svg/brand-logos/google-icon.svg"
+                                                                    class="h-20px me-3" />Continue with Google</a>
+
+                                                            <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
+                                                                <img alt="Logo" src="assets/media/svg/brand-logos/facebook-4.svg"
+                                                                    class="h-20px me-3" />Continue with Facebook</a>
+
+                                                            <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100">
+                                                                <img alt="Logo" src="assets/media/svg/brand-logos/apple-black.svg"
+                                                                    class="h-20px me-3" />Continue with Apple</a>
+
+                                                        </div>
+                                                   send::Actions-->
                 </form>
                 <!--end::Form-->
             </div>
             <!--end::Wrapper-->
         </div>
         <!--end::Content-->
+        <style>
+            .h-60px {
+                height: 126px !important;
+            }
+        </style>
     @endsection

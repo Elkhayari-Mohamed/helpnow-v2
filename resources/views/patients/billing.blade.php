@@ -222,21 +222,23 @@
                         </thead>
                         <tbody class="fw-bold text-gray-600">
                             <!--begin::Table row-->
-                            @foreach ($charges as $charge)
-                                <tr>
-                                    <td>{{ \Carbon\Carbon::createFromTimestamp($charge->created)->format('M d, Y') }}</td>
-                                    <td>
-                                        <a style="color: #57d156;" href="#">{{ $charge->status }}</a>
-                                    </td>
-                                    <td>{{ $charge->amount }}</td>
+                            @if ($charges)
+                                @foreach ($charges as $charge)
+                                    <tr>
+                                        <td>{{ \Carbon\Carbon::createFromTimestamp($charge->created)->format('M d, Y') }}
+                                        </td>
+                                        <td>
+                                            <a style="color: #57d156;" href="#">{{ $charge->status }}</a>
+                                        </td>
+                                        <td>{{ number_format($charge->amount / 100, 2, ',', '') }} DH</td>
 
-                                    <td class="text-right">
-                                        <a href="{{ $charge->receipt_url }}"
-                                            class="btn btn-sm btn-light btn-active-light-primary">View</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-
+                                        <td class="text-right">
+                                            <a href="{{ $charge->receipt_url }}"
+                                                class="btn btn-sm btn-light btn-active-light-primary">View</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             <!--end::Table row-->
 
                             <!--end::Table row-->
@@ -295,7 +297,7 @@
                             <!--Stripe.js injects the Payment Element-->
                         </div>
                         <label style="margin-top: 20px;" for="amount">Amount to Pay:</label>
-                        <input type="number" id="amount-input" name="amount" min="1"
+                        <input type="number" id="amount" name="amount" min="1"
                             placeholder="Enter Amount in MAD" required />
 
                         <button id="submit">
@@ -779,9 +781,10 @@
             e.preventDefault();
             setLoading(true);
 
-            const amount = document.querySelector("#amount-input").value * 1; // Convert to cents
+            const amount = document.querySelector("#amount").value * 1; // Convert to cents
 
             const response = await fetch("/walletcreate", {
+
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -885,7 +888,7 @@
             display: none;
         }
 
-        #amount-input {
+        #amount {
             font-family: Arial, sans-serif;
             color: #5469d4;
             border-radius: 5px;
@@ -898,7 +901,7 @@
             margin-top: 10px;
         }
 
-        #amount-input:focus {
+        #amount:focus {
             border: 1px solid #2238b9;
             outline: none;
         }

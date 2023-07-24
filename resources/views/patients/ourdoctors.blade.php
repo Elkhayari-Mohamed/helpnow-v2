@@ -58,8 +58,9 @@
                     <h3 class="fs-2hx text-dark mb-5">Our Great Doctors</h3>
                     <!--end::Title-->
                     <!--begin::Sub-title-->
-                    <div class="fs-5 text-muted fw-bold">It’s no doubt that when a development takes longer to complete,
-                        additional costs to
+                    <div class="fs-5 text-muted fw-bold">Meet the heart of our application: a distinguished team of
+                        healthcare professionals devoted to patient care. Handpicked for their expertise and commitment,
+                        they redefine healthcare delivery by offering personalized and compassionate care.
                         <br />integrate and test each extra feature creeps up and haunts most of us.
                     </div>
                     <!--end::Sub-title=-->
@@ -72,8 +73,16 @@
                     @foreach ($listdoctors as $list)
                         <div class="col text-center mb-9">
                             <!--begin::Photo-->
-                            <div class="octagon mx-auto mb-2 d-flex w-150px h-150px bgi-no-repeat bgi-size-contain bgi-position-center"
-                                style="background-image:url('assets/media/avatars/300-1.jpg')"></div>
+                            @if ($list->img)
+                                <div
+                                    class="octagon mx-auto mb-2 d-flex w-150px h-150px bgi-no-repeat bgi-size-contain bgi-position-center">
+                                    <img src={{ $list->img ?? 'assets/media/avatars/300-1.jpg' }} alt="image" />
+
+                                </div>
+                            @else
+                                <div class="octagon mx-auto mb-2 d-flex w-150px h-150px bgi-no-repeat bgi-size-contain bgi-position-center"
+                                    style="background-image:url('assets/media/avatars/300-1.jpg')"></div>
+                            @endif
                             <!--end::Photo-->
                             <!--begin::Person-->
                             <div class="mb-0">
@@ -107,11 +116,11 @@
                                 <div class="fw-bolder mt-5">Average Rating:</div>
 
                                 @for ($i = 0; $i < $averageRating; $i++)
-                                    <i class="fas fa-star text-yellow-500"></i>
+                                    <i style="color: #e5eb30;" class="fas fa-star text-yellow-500 "></i>
                                 @endfor
 
                                 @for ($i = 5; $i > $averageRating; $i--)
-                                    <i class="far fa-star text-yellow-500"></i>
+                                    <i style="color: #e5eb30;" class="far fa-star text-yellow-500 "></i>
                                 @endfor
                             @else
                                 <div class="text-gray-600">
@@ -128,38 +137,7 @@
 
                 <!--end::Team-->
                 <!--begin::Join--><br /><br /><br /><br />
-                <div class="text-center mb-20">
-                    <!--begin::Top-->
-                    <div class="mb-13">
-                        <!--begin::Title-->
-                        <h3 class="fs-2hx text-dark mb-5">Join Us</h3>
-                        <!--end::Title-->
-                        <!--begin::Text-->
-                        <div class="fs-5 text-muted fw-bold">Save thousands to millions of bucks by using single tool
-                            <br />for different amazing and great useful admin
-                        </div>
-                        <!--end::Text-->
-                    </div>
-                    <!--end::Top-->
-                    <!--begin::Text-->
-                    <p class="fs-5 fw-bold text-gray-600 text-start mb-15">First, a disclaimer – the entire process of
-                        writing
-                        a blog post often takes more than a couple of hours, even if you can type eighty words per minute
-                        and
-                        your writing skills are sharp. From the seed of the idea to finally hitting “Publish,” you might
-                        spend
-                        several days or maybe even a week “writing” a blog post, but it’s important to spend those vital
-                        hours
-                        planning
-                        <a href="../../demo1/dist/pages/blog/post.html" class="link-primary pe-1">Your Post</a>(yes,
-                        thinking
-                        counts as working if you’re a blogger) before you actually write it.
-                    </p>
-                    <!--end::Text-->
-                    <!--begin::Action-->
-                    <a href="../../demo1/dist/pages/careers/apply.html" class="btn btn-primary mb-5">Apply Now</a>
-                    <!--end::Action-->
-                </div>
+
                 <!--end::Join-->
                 <!--begin::Card-->
                 <div class="card mb-4 bg-light text-center">

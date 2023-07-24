@@ -68,7 +68,7 @@
                             <!--begin::Label-->
                             <div class="d-flex align-items-center">
                                 @php
-                                    $total = $consultations->where(['patient_id' => $patient_id])->count();
+                                    $total = $consultations->count();
                                     
                                 @endphp
                                 <div class="fw-bolder fs-5 text-gray-800 pe-1">{{ $total }}
@@ -113,7 +113,7 @@
                                 <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">Consultations
                                     Approved</a>
                                 @php
-                                    $count = $consultations->where(['patient_id' => $patient_id, 'status' => 1])->count();
+                                    $count = $consultations->where('status', '1')->count();
                                 @endphp
                             </div>
                             <!--end::Title-->
@@ -155,7 +155,7 @@
                             <!--begin::Title-->
                             @php
                                 
-                                $count = $consultations->where(['patient_id' => $patient_id, 'payed' => 1])->count();
+                                $count = $consultations->where('payed', '1')->count();
                             @endphp
                             <div class="mb-1 pe-3 flex-grow-1">
                                 <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">Consultations

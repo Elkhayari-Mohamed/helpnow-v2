@@ -33,8 +33,6 @@
                 <div class="bg-body shadow-sm card-rounded mx-9 mb-9 px-6 py-9 position-relative z-index-1"
                     style="margin-top: -100px">
                     <!--begin::Item-->
-                    @foreach ($consultations as $consultation)
-                    @endforeach
 
                     <div class="d-flex align-items-center mb-6">
                         <!--begin::Symbol-->
@@ -113,7 +111,8 @@
                                 <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">Consultations
                                     Approved</a>
                                 @php
-                                    $count = $consultations->where(['status' => 1])->count();
+                                    $count = $consultations->where('status', '1')->count();
+                                    $payed = $consultations->where('payed', '1')->count();
                                 @endphp
                             </div>
                             <!--end::Title-->
@@ -153,10 +152,6 @@
                         <!--begin::Description-->
                         <div class="d-flex align-items-center flex-wrap w-100">
                             <!--begin::Title-->
-                            @php
-                                
-                                $count = $consultations->where(['payed' => 1])->count();
-                            @endphp
                             <div class="mb-1 pe-3 flex-grow-1">
                                 <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">Consultations
                                     Payed</a>
@@ -164,7 +159,7 @@
                             <!--end::Title-->
                             <!--begin::Label-->
                             <div class="d-flex align-items-center">
-                                <div class="fw-bolder fs-5 text-gray-800 pe-1">{{ $count }}</div>
+                                <div class="fw-bolder fs-5 text-gray-800 pe-1">{{ $payed }}</div>
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
 
                                 <!--end::Svg Icon-->
@@ -223,7 +218,7 @@
                             <div class="d-flex align-items-center flex-wrap flex-grow-1 mt-n2 mt-lg-n1">
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pe-3">
-                                    <a
+                                    <a href="/doctors/patient_info/{{ $consultation->id }}"
                                         class="fs-5 text-gray-800 text-hover-primary fw-bolder">{{ $consultation->patient->first_name . ' ' . $consultation->patient->last_name }}</a>
                                     <span class="text-gray-400 fw-bold fs-7 my-1">Date:
                                         {{ $consultation->consultation_date }}</span>

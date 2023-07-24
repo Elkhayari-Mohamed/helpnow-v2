@@ -10,6 +10,7 @@ use App\Models\Ordonnance;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Collection;
 
 
@@ -126,18 +127,25 @@ class PatientsController extends Controller
         $data = [];
         $data =  $request->all();
         $user_id = Auth::id();
-
+        //dd($data);
         User::find($user_id)->update([
             'email' => $data['email']
         ]);
         unset($data['email']);
         unset($data['specialitie']);
         unset($data['_token']);
-        unset($data['avatar']);
-        unset($data['avatar_remove']);
 
+        if ($request->hasFile('img')) {
+            $destinationPath = 'profile_images/' . $user_id;
 
+            $fileName = $request->file('img')->getClientOriginalName();
+
+            $request->file('img')->move($destinationPath, $fileName);
+
+            $data['img'] = asset($destinationPath . '/' . $fileName);
+        }
         Patient::where('user_id', $user_id)->update($data);
+
         //dd($data,$user_id);
         return redirect('/patients/overview')
             ->with('success', 'Product updated successfully');
@@ -283,10 +291,15 @@ class PatientsController extends Controller
 
     public function ordonnance(Patient $Patient, $id)
     {
-
-
         $ordonnance_info = Ordonnance::where('consultation_id', $id)->get();
-        // dd($ordonnance_info);
-        return view('patients.ordonnance', ['ordonnance_info' => $ordonnance_info]);
+        $doctor_email = $ordonnance_info->first()->doctor_email;
+
+        $doctor_id = User::where('email', $doctor_email)->first('id');
+        $doctor_info = Doctor::where('user_id', $doctor_id->id)->first();
+
+        return view('patients.ordonnance', [
+            'ordonnance_info' => $ordonnance_info,
+            'doctor_info' => $doctor_info
+        ]);
     }
 }

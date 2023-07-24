@@ -350,7 +350,11 @@ License: For each use you must have a valid license purchased only from above li
                                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
                                         data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                                         data-kt-menu-placement="bottom-end">
-                                        <img src="assets/media/avatars/300-1.jpg" alt="user" />
+                                        @if ($user_info->img)
+                                            <img src={{ $user_info->img }} alt="user" />
+                                        @else
+                                            <img src='assets/media/avatars/300-1.jpg' alt="user" />
+                                        @endif
                                     </div>
                                     <!--begin::User account menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
@@ -360,7 +364,11 @@ License: For each use you must have a valid license purchased only from above li
                                             <div class="menu-content d-flex align-items-center px-3">
                                                 <!--begin::Avatar-->
                                                 <div class="symbol symbol-50px me-5">
-                                                    <img alt="Logo" src="assets/media/avatars/300-1.jpg" />
+                                                    @if ($user_info->img)
+                                                        <img src={{ $user_info->img }} alt="user" />
+                                                    @else
+                                                        <img src='assets/media/avatars/300-1.jpg' alt="user" />
+                                                    @endif
                                                 </div>
                                                 <!--end::Avatar-->
                                                 <!--begin::Username-->
@@ -393,15 +401,7 @@ License: For each use you must have a valid license purchased only from above li
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
-                                        <div class="menu-item px-5">
-                                            <a href="../../demo1/dist/apps/projects/list.html" class="menu-link px-5">
-                                                <span class="menu-text">My Projects</span>
-                                                <span class="menu-badge">
-                                                    <span
-                                                        class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
-                                                </span>
-                                            </a>
-                                        </div>
+
                                         <!--end::Menu item-->
 
                                         <!--begin::Menu separator-->

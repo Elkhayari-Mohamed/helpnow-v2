@@ -23,7 +23,15 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // Get the authenticated user
+                $user = Auth::guard($guard)->user();
+
+                // Check the user's type_account and redirect accordingly
+                if ($user->type_account === 'doctor') {
+                    return redirect('/doctors/index');
+                } else {
+                    return redirect('/patients/index');
+                }
             }
         }
 

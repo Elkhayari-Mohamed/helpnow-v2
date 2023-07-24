@@ -70,7 +70,7 @@
                 <div class="d-flex gap-7 align-items-center">
                     <!--begin::Avatar-->
                     <div class="symbol symbol-circle symbol-100px">
-                        <img src="assets/media/avatars/300-6.jpg" alt="image" />
+                        <img src={{ $info->img ?? 'assets/media/avatars/300-1.jpg' }}>
                     </div>
                     <!--end::Avatar-->
                     <!--begin::Profile-->

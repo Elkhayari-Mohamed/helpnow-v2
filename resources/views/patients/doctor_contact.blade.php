@@ -98,9 +98,10 @@
                             <!--begin::Details item-->
                             <!--begin::Details item-->
                             <div class="fw-bolder mt-5">Review</div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#reviewModal">
-                                Write a review
+                            <br>
+                            <button type="button" class="btn btn-primary bnt-active-light-primary btn-sm"
+                                data-bs-toggle="modal" data-bs-target="#reviewModal">
+                                Make Review
                             </button>
 
                             <!--begin::Details item-->
@@ -372,9 +373,12 @@
                         });
                     </script>
                     <style>
-                        /* .rating-stars ul > li.star {
-                                        display: inline-block;
-                                    } */
+                        .rating-stars ul>li.star {
+                            display: inline-block;
+                            margin-right: 5px;
+                            /* adjust as needed */
+
+                        }
 
                         /* Idle State of the stars */
                         .rating-stars ul>li.star>i.fa {

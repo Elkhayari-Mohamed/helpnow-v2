@@ -29,7 +29,7 @@
             <form method="POST" action="{{ route('patientsComplete_profile') }}">
                 @csrf
 
-                <input type="hidden" value="1500" name="balance">
+                <input type="hidden" value="0" name="balance">
                 <!--begin::Input group-->
 
                 <div class="mb-7">

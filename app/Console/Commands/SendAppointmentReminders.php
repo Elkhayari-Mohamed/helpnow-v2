@@ -41,25 +41,26 @@ class SendAppointmentReminders extends Command
 
         foreach ($consultations as $consultation) {
             // Send SMS to doctor
-            /* $this->sendSms(
+            // dd($consultation->doctor->user);
+            $this->sendSms(
                 '+212694221637',
-                "Reminder: You have a consultation tomorrow at {$consultation->consultation_time}"
+                "Reminder: You have a consultation tomorrow at {$consultation->consultation_date} With Patient {$consultation->patient->first_name} {$consultation->patient->last_name}"
             );
 
             // Send SMS to patient
             $this->sendSms(
                 '+212694221637',
-                "Reminder: You have a consultation tomorrow at {$consultation->consultation_time}"
+                "Reminder: You have a consultation tomorrow at {$consultation->consultation_date} With Doctor {$consultation->doctor->first_name} {$consultation->doctor->last_name}"
             );
             if ($consultation->doctor->user === null) {
                 $this->error('Doctor ' . $consultation->doctor->id . ' does not have an associated user.');
-                continue;*/
-
+                continue;
+            }
             // Send email to doctor
             $this->sendEmail(
                 $consultation->doctor->user->email,
                 "Appointment Reminder",
-                "You have a consultation tomorrow at {$consultation->consultation_date} With {$consultation->patient->first_name} {$consultation->patient->last_name}"
+                "You have a consultation tomorrow at {$consultation->consultation_date} With Patient {$consultation->patient->first_name} {$consultation->patient->last_name}"
             );
 
             // Send email to patient
@@ -67,7 +68,7 @@ class SendAppointmentReminders extends Command
 
                 $consultation->patient->user->email,
                 "Appointment Reminder",
-                "You have a consultation tomorrow at {$consultation->consultation_date} With {$consultation->doctor->first_name} {$consultation->doctor->last_name}"
+                "You have a consultation tomorrow at {$consultation->consultation_date} With Doctor {$consultation->doctor->first_name} {$consultation->doctor->last_name}"
             );
         }
     }
@@ -78,7 +79,7 @@ class SendAppointmentReminders extends Command
      * @param string $number
      * @param string $message
      */
-    /* protected function sendSms(string $number, string $message)
+    protected function sendSms(string $number, string $message)
     {
         $twilio = new TwilioClient(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));
 
@@ -86,7 +87,7 @@ class SendAppointmentReminders extends Command
             'from' => env('TWILIO_NUMBER'),
             'body' => $message
         ]);
-    }*/
+    }
 
     /**
      * Send an email to the given address.

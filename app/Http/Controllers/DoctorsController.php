@@ -29,7 +29,6 @@ class DoctorsController extends Controller
         //dd($wallet);
         $consultations = Consultation::where('doctor_id', $id->id)->get();
         $balance = $consultations->where('payed', '1')->sum('price');
-
         //dd($balance);
 
         return view('doctors.index', [
@@ -134,23 +133,19 @@ class DoctorsController extends Controller
             'email' => $data['email']
         ]);
 
-
-
-        /*
-      $specialitie = $data['specialitie_name'];
-      $specialitie_id= Specialitie::select('id')->where('name',$specialitie)->first();
-      $specialitie_array =['specialitie_id'=>$specialitie_id->id,'doctor_id'=>$user_id];
-      dd($specialitie_array);
-
-
-        DoctorSpecialitie::where([
-            'specialitie_id',$specialitie_id->id,
-            'doctor_id' , $user_id
-        ])->create($specialitie_array);*/
-
         unset($data['email']);
         //unset($data['specialitie_name']);
         unset($data['_token']);
+
+        if ($request->hasFile('img')) {
+            $destinationPath = 'profile_images/' . $user_id;
+
+            $fileName = $request->file('img')->getClientOriginalName();
+
+            $request->file('img')->move($destinationPath, $fileName);
+
+            $data['img'] = asset($destinationPath . '/' . $fileName);
+        }
 
         Doctor::where('user_id', $user_id)->update($data);
         //dd($data,$user_id);

@@ -28,10 +28,25 @@
             <!--begin::Card body-->
             <div class="card-body pt-5">
                 <!--begin::Form-->
-                <form method="POST" action="{{ route('doctors.update') }}">
+                <form method="POST" action="{{ route('doctors.update') }}" enctype="multipart/form-data">
                     @csrf
                     <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                        <label class="fw-bold fs-6 mb-2">Profile Picture</label>
 
+                        <!-- Image container -->
+                        <div class="image-container">
+                            <img src={{ $info->img ?? 'assets/media/avatars/300-1.jpg' }} id="imgPreview" src="#"
+                                alt="your image" class="img-circle" />
+                        </div>
+
+                        <!-- File Input -->
+                        <div class="input-group">
+                            <input type="file" class="form-control form-control-lg form-control-solid" id="img"
+                                name="img" onchange="readURL(this);">
+                            <label class="input-group-text" for="img">Upload</label>
+                        </div>
+                    </div>
                     <!--end::Input group-->
                     <!--begin::Input group-->
                     <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
@@ -156,23 +171,27 @@
                                             <option value="AS"
                                                 data-kt-select2-country="assets/media/flags/american-samoa.svg">
                                                 American Samoa</option>
-                                            <option value="AD" data-kt-select2-country="assets/media/flags/andorra.svg">
+                                            <option value="AD"
+                                                data-kt-select2-country="assets/media/flags/andorra.svg">
                                                 Andorra
                                             </option>
-                                            <option value="AO" data-kt-select2-country="assets/media/flags/angola.svg">
+                                            <option value="AO"
+                                                data-kt-select2-country="assets/media/flags/angola.svg">
                                                 Angola
                                             </option>
                                             <option value="AI"
                                                 data-kt-select2-country="assets/media/flags/anguilla.svg">
                                                 Anguilla</option>
                                             <option value="AG"
-                                                data-kt-select2-country="assets/media/flags/antigua-and-barbuda.svg">Antigua
+                                                data-kt-select2-country="assets/media/flags/antigua-and-barbuda.svg">
+                                                Antigua
                                                 and
                                                 Barbuda</option>
                                             <option value="AR"
                                                 data-kt-select2-country="assets/media/flags/argentina.svg">
                                                 Argentina</option>
-                                            <option value="AM" data-kt-select2-country="assets/media/flags/armenia.svg">
+                                            <option value="AM"
+                                                data-kt-select2-country="assets/media/flags/armenia.svg">
                                                 Armenia
                                             </option>
                                             <option value="AW" data-kt-select2-country="assets/media/flags/aruba.svg">
@@ -949,12 +968,13 @@
                                 <!--begin::Label-->
                                 <label class=" fw-bold fs-6 mb-2">Gender</label>
                                 <select required class="form-control form-control-lg form-control-solid" name="gender">
-                                    <option value="{{ $info->gender }}"> Male </option>
-                                    <option value="{{ $info->gender }}"> Female </option>
+                                    <option value="Male" {{ $info->gender == 'Male' ? 'selected' : '' }}>Male</option>
+                                    <option value="Female" {{ $info->gender == 'Female' ? 'selected' : '' }}>Female
+                                    </option>
                                 </select>
-
                                 <!--end::Input-->
                             </div>
+
                             <!--end::Input group-->
                         </div>
                         <!--end::Col-->
@@ -1015,4 +1035,40 @@
         </div>
     @endforeach
     <!--end::Contacts-->
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#imgPreview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+    </script>
+    <!--end::Contacts-->
+    <style>
+        .image-container {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .img-circle {
+            border-radius: 50%;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 @endsection

@@ -174,7 +174,9 @@ class WalletsController extends Controller
         $wallet = Wallet::where('patient_id', auth()->id())->first();
 
         $customer_email = auth()->user()->email;
+
         $customers = \Stripe\Customer::all(["email" => $customer_email]);
+
         $customer_id = null;
         if (count($customers->data) > 0) {
             $customer_id = $customers->data[0]->id;
@@ -182,8 +184,9 @@ class WalletsController extends Controller
             $customer = \Stripe\Customer::create(['email' => $customer_email]);
             $customer_id = $customer->id;
         }
+
         session(['customer_id' => $customer_id]);
-        $amount = $request->get('amount');
+        $amount = $request->get('amount') * 100; // convert the amount to cents
 
         try {
             // Continue with creating the PaymentIntent
@@ -193,8 +196,8 @@ class WalletsController extends Controller
                 'customer' => $customer_id,
             ]);
 
-            $wallet->balance = $wallet->balance + $amount;
-            $wallet->update();
+            $wallet->balance = $wallet->balance + ($amount / 100);
+            $wallet->save();
 
 
             $output = [
@@ -207,6 +210,7 @@ class WalletsController extends Controller
 
             return response()->json($output);
         } catch (Exception $e) {
+
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -218,7 +222,7 @@ class WalletsController extends Controller
         session(['payment_intent' => $request->input('payment_intent')]);
         session(['last4' => $request->input('card_last_four')]);
         session(['card_brand' => $request->input('card_brand')]);
-        $date_exp =    $request->input('card_expiration_month')  . '/' . $request->input('card_expiration_year');
+        $date_exp = $request->input('card_expiration_month')  . '/' . $request->input('card_expiration_year');
         StripeInfo::create([
             'user_id' =>  $user_id,
             'stripe_id' => $stripe_id,

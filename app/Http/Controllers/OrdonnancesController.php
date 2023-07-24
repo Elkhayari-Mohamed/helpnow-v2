@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\ConsultationsController;
 
@@ -32,15 +33,17 @@ class OrdonnancesController extends Controller
     public function create($id)
     {
         $patient_infos = Consultation::where(
-            'id',$id
+            'id',
+            $id
         )->with(['medical_record'])->get();
-      //dd($patient_infos);
-       // $patient_id = $patient_infos->patient_id;
+        //dd($patient_infos);
+        // $patient_id = $patient_infos->patient_id;
 
-       // $patient_info=Patient::where('id',$patient_id)->get();
+        // $patient_info=Patient::where('id',$patient_id)->get();
         //dd($patient_info);
 
-        return view ('doctors.rapport',['patient_info'=>$patient_infos]);    }
+        return view('doctors.rapport', ['patient_info' => $patient_infos]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -52,28 +55,34 @@ class OrdonnancesController extends Controller
     {
         unset($request['_token']);
         $data =  $request->all();
-      //  dd($data);
-        $doc_id=Doctor::select('id')->where('user_id',Auth::id())->first();
-        $doctor_info =Doctor::Where('id',$doc_id->id)->first();
-        $email = User::select('email')->where('id',Auth::id())->first();  
+        //  dd($data);
+        $doc_id = Doctor::select('id')->where('user_id', Auth::id())->first();
+        $doctor_info = Doctor::Where('id', $doc_id->id)->first();
+        $email = User::select('email')->where('id', Auth::id())->first();
 
         Ordonnance::create([
-        'consultation_id'=>$request->consultation_id,
-        'doctor_name' =>$doctor_info->first_name.' '.$doctor_info->last_name,
-        'patient_name'=>$request->patient_name,
-        'doctor_specialite'=>$doctor_info->specialitie_name,
-        'doctor_adresse'=>$doctor_info->address.' '.$doctor_info->city,
-        'doctor_phone'=>$doctor_info->phone,
-        'doctor_email'=>$email->email,
-        'prescription'=>$request->prescription,
-        
+            'consultation_id' => $request->consultation_id,
+            'doctor_name' => $doctor_info->first_name . ' ' . $doctor_info->last_name,
+            'patient_name' => $request->patient_name,
+            'doctor_specialite' => $doctor_info->specialitie_name,
+            'doctor_adresse' => $doctor_info->address . ' ' . $doctor_info->city,
+            'doctor_phone' => $doctor_info->phone,
+            'doctor_email' => $email->email,
+            'prescription' => $request->prescription,
+            'medication_name' => $request->medication_name,
+            'dosage' => $request->dosage,
+            'frequency' => $request->frequency,
+            'duration' => $request->duration,
+            'instructions' => $request->instructions,
+
         ]);
 
-        $or=Ordonnance::select('id')->where('consultation_id',$request->consultation_id)->first();
-       // dd($request->consultation_id);
-        Ordonnance::where('consultation_id',$request->consultation_id)->update(['status'=> '1']);
+        $or = Ordonnance::select('id')->where('consultation_id', $request->consultation_id)->first();
+        // dd($request->consultation_id);
+        Ordonnance::where('consultation_id', $request->consultation_id)->update(['status' => '1']);
         //dd($or->id);
-        return redirect('/doctors/Patients_list')->with('success','Done');    }
+        return redirect('/doctors/Patients_list')->with('success', 'Done');
+    }
 
     /**
      * Display the specified resource.
@@ -81,7 +90,7 @@ class OrdonnancesController extends Controller
      * @param  \App\Models\Ordonnance  $ordonnance
      * @return \Illuminate\Http\Response
      */
-  
+
     public function show(Ordonnance $ordonnance)
     {
         //

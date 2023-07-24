@@ -25,12 +25,15 @@ use app\Http\Controllers\Patients_listController;
  */
 
 Route::get('/', function () {
-    return view('doctors.index');
+    if (auth()->check() && auth()->user()->type_account == 'doctor') {
+        return redirect('doctors/index');
+    } else {
+        return redirect('patients/index');
+    }
 });
-Route::get('/', function () {
-    return redirect('patients/index');
-});
+
 Route::get('/live/{link}', [HomeController::class, 'live'])->name('live');
+Route::get('/getToken', [HomeController::class, 'generateJWTToken']);
 
 
 

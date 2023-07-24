@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ordonnance extends Model
 {
-    protected $fillable=[
+    protected $fillable = [
         'consultation_id',
         'doctor_name',
         'patient_name',
@@ -16,7 +16,11 @@ class Ordonnance extends Model
         'doctor_phone',
         'doctor_email',
         'prescription',
-        
+        'medication_name',
+        'dosage',
+        'frequency',
+        'duration',
+        'instructions',
 
     ];
 
@@ -32,13 +36,13 @@ class Ordonnance extends Model
         return $this->belongsTo(Patient::class);
     }
 
-    public function doctor(){
+    public function doctor()
+    {
 
         return $this->belongsTo(Doctor::class);
     }
     public function medical_record()
-{
-    return $this->hasOne(MedicalRecord::class);
-}
-
+    {
+        return $this->hasOne(MedicalRecord::class);
+    }
 }
