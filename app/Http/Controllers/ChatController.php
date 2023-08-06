@@ -40,18 +40,17 @@ class ChatController extends Controller
     {
         // Define a separator for the exchanges
         $separator = "\n\n[end of message]\n\n";
-        // Split the history into exchanges
-        $exchanges = explode($separator, implode("\n", $history));
-        // Use the last few exchanges as the context
-        $context = array_slice($exchanges, -5);  // adjust the number as needed
+
         // Prepare the prompt
-        $prompt = implode($separator, $context);
+        $prompt = implode($separator, $history) . $separator;
+
         // Return the prompt
         return $prompt;
     }
+
     private function getCompletion($prompt)
     {
-        $apiKey = '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';
+        $apiKey = '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';
         $url = 'https://api.openai.com/v1/engines/text-davinci-002/completions';
 
         $headers = [
